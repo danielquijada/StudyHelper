@@ -16,7 +16,7 @@
 		};
 
 		function getList() {
-			var stringList = localStorage.getItem(KEY) || '["Botánica", "Matemáticas"]';
+			var stringList = localStorage.getItem(KEY) || '[]';
 			return JSON.parse(stringList);
 		}
 
