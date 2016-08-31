@@ -1,0 +1,9 @@
+<h1>LIST</h1>
+<p ng-if="!subjects || subjects.length <= 0">Aún no has introducido ninguna asignatura.</p>
+<div ng-repeat="subject in subjects track by $index" class="question">
+    <!--<a ng-click="edit(question.id)">Editar</a>-->
+    <span>{{$index + 1}}. {{subject}}</span>
+    <div class="text-right">
+        <a class="btn btn-danger" ng-click="remove(subject)">Eliminar</a>
+    </div>
+</div>

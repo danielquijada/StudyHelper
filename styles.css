@@ -1,0 +1,19 @@
+.correct {
+    background-color: #afa;
+}
+
+.form-group {
+    padding: 10px;
+}
+
+.correct input {
+    font-weight: bold;
+}
+
+.question {
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: #bbb;
+    margin: 20px;
+    padding: 20px;
+}
