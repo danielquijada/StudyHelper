@@ -122,6 +122,10 @@ function setupTestCtrl($scope, subjectsList) {
 
 function takeTestCtrl($scope, $stateParams, questionList) {
     testParams = $stateParams.testParams;
+    $scope.score = {
+        correct: 0,
+        answered: 0
+    }
 
     var list = copy(questionList);
 
@@ -148,6 +152,12 @@ function takeTestCtrl($scope, $stateParams, questionList) {
         
         question.solved = true;
         question.selected = answerIndex;
+
+        $scope.score.answered++;
+
+        if (question.correct == answerIndex) {
+            $scope.score.correct++;
+        }
     }
 }
 

@@ -45,3 +45,20 @@
     background-color: #afa !important;
     border-color: darkgreen;
 }
+
+.failTest {
+    border-color: darkred;
+    background-color: #f77;
+    border-width: thick;
+}
+
+.passTest {
+    background-color: #afa;
+    border-color: darkgreen;
+    border-width: thick;
+}
+
+.completedTest {
+    border-style: solid;
+    font-weight: bold;
+}
