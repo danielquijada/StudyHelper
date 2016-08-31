@@ -17,3 +17,31 @@
     margin: 20px;
     padding: 20px;
 }
+
+.unsolved .testAnswer:hover {
+    background-color: #eee;
+}
+
+.testAnswer {
+    cursor: pointer;
+}
+
+.solved .testAnswer {
+    cursor: default;
+}
+
+.selected {
+    border-style: solid;
+    border-width: 1px;
+    border-color: darkred;
+    background-color: #f77 !important;
+}
+
+.solved .correctAnswer {
+    background-color: #afa !important;
+}
+
+.correctAnswer.selected {
+    background-color: #afa !important;
+    border-color: darkgreen;
+}

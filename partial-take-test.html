@@ -1,0 +1,9 @@
+<h2>Presentar Test</h2>
+<p ng-if="!testQuestions || testQuestions.length <= 0">No hay ninguna pregunta que corresponda con tus criterios.</p>
+<div ng-repeat="question in testQuestions track by $index" class="question" ng-class="{'solved': question.solved,'unsolved': !question.solved}">
+    <h3>{{$index + 1}}) {{question.question}}</h3>
+    <ol>
+        <li ng-repeat="answer in question.answers" ng-class="{'correctAnswer': question.correct == $index, 'selected': question.selected && question.selected == $index}"
+            class="testAnswer" ng-click="solve(question,$index)">{{answer}}</li>
+    </ol>
+</div>

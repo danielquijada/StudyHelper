@@ -11,6 +11,36 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'partial-questions.html'
         })
 
+        .state('test', {
+            url: '/test',
+            templateUrl: 'partial-test.html'
+        })
+
+        .state('test.new', {
+            url: '/new',
+            templateUrl: 'partial-new-test.html',
+            controller: setupTestCtrl,
+            resolve: {
+                subjectsList: function (subjectService) {
+                    var list = subjectService.getList();
+                    return list;
+                }
+            }
+        })
+
+        .state('test.take', {
+            url: '/take',
+            templateUrl: "partial-take-test.html",
+            controller: takeTestCtrl,
+            params: { testParams: null },
+            resolve: {
+                questionList: function (questionService) {
+                    var list = questionService.getList();
+                    return list;
+                }
+            }
+        })
+
         .state('subjects', {
             url: '/subjects',
             templateUrl: 'partial-subjects.html'
@@ -56,24 +86,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/new',
             templateUrl: 'partial-new-subject.html',
             controller: newSubjectCtrl
-        })
-
-        .state('test', {
-            url: '/test',
-            views: {
-
-                '': { templateUrl: 'partial-test.html' },
-
-                'columnOne@about': { template: 'Look I am a column!' },
-
-                'columnTwo@about': {
-                    templateUrl: 'table-data.html',
-                    controller: 'scotchController'
-                }
-            }
-
         });
-
 });
 
 app.controller('scotchController', function ($scope) {
@@ -96,6 +109,47 @@ app.controller('scotchController', function ($scope) {
     ];
 
 });
+
+function setupTestCtrl($scope, subjectsList) {
+    $scope.subjects = subjectsList;
+
+    $scope.params = {
+        numQuestions: 0,
+        randomOrder: true,
+        subject: ''
+    };
+}
+
+function takeTestCtrl($scope, $stateParams, questionList) {
+    testParams = $stateParams.testParams;
+
+    var list = copy(questionList);
+
+    if (testParams.randomOrder) {
+        list = randomizeOrder(list);
+    }
+
+    if (testParams.subject) {
+        list = list.filter(function (question) {
+            return question.subject === testParams.subject;
+        })
+    }
+
+    if (testParams.numQuestions && testParams.numQuestions > 0) {
+        list = list.slice(0, testParams.numQuestions);
+    }
+
+    $scope.testQuestions = list;
+
+    $scope.solve = function(question, answerIndex) {
+        if (question.solved) {
+            return;
+        }
+        
+        question.solved = true;
+        question.selected = answerIndex;
+    }
+}
 
 function questionListCtrl($scope, questionList, questionService) {
     $scope.questions = questionList;
@@ -123,7 +177,7 @@ function newQuestionCtrl($scope, questionService, subjectsList) {
         'correct': -1,
         'answers': ['']
     };
-    
+
     $scope.subjects = subjectsList;
     $scope.newQuestion = copy(emptyQuestion);
 
@@ -148,4 +202,8 @@ function newSubjectCtrl($scope, subjectService) {
 
 function copy(object) {
     return JSON.parse(JSON.stringify(object));
+}
+
+function randomizeOrder(list) {
+    return list;
 }
