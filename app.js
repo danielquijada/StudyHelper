@@ -145,11 +145,11 @@ function takeTestCtrl($scope, $stateParams, questionList) {
 
     $scope.testQuestions = list;
 
-    $scope.solve = function(question, answerIndex) {
+    $scope.solve = function (question, answerIndex) {
         if (question.solved) {
             return;
         }
-        
+
         question.solved = true;
         question.selected = answerIndex;
 
@@ -190,14 +190,24 @@ function newQuestionCtrl($scope, questionService, subjectsList) {
 
     $scope.subjects = subjectsList;
     $scope.newQuestion = copy(emptyQuestion);
+    $scope.validationError = false;
 
     $scope.addAnswer = function () {
         $scope.newQuestion.answers.push('');
     }
 
     $scope.save = function () {
-        questionService.save($scope.newQuestion);
-        $scope.newQuestion = copy(emptyQuestion);
+        if (!validate()) {
+            $scope.validationError = true;
+        } else {
+            questionService.save($scope.newQuestion);
+            $scope.newQuestion = copy(emptyQuestion);
+            $scope.validationError = false;
+        }
+    }
+
+    function validate() {
+        return $scope.newQuestion.question !== '' && $scope.newQuestion.correct > -1 && $scope.newQuestion.answers.join('') != '';
     }
 }
 

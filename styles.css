@@ -62,3 +62,11 @@
     border-style: solid;
     font-weight: bold;
 }
+
+.error {
+    margin-top: 20px;
+}
+
+.error p {
+    color: red;
+}
