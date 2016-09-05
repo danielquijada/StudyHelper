@@ -13,7 +13,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2">Asignatura:</label>
             <div class="col-sm-10">
-                <select ng-model="params.subject">
+                <select ng-model="params.subject" required>
                     <option ng-repeat="subject in subjects track by $index" value="{{subject}}">{{subject}}</option>
                 </select>
             </div>
