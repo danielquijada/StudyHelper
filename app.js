@@ -66,6 +66,24 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 subjectsList: function (subjectService) {
                     var list = subjectService.getList();
                     return list;
+                },
+                defaultQuestion: function () {
+                    return null;
+                }
+            }
+        })
+
+        .state('questions.edit', {
+            url: '/edit/:id',
+            templateUrl: 'partial-new-question.html',
+            controller: newQuestionCtrl,
+            resolve: {
+                subjectsList: function (subjectService) {
+                    var list = subjectService.getList();
+                    return list;
+                },
+                defaultQuestion: function ($stateParams, questionService) {
+                    return questionService.get($stateParams.id);
                 }
             }
         })
@@ -161,12 +179,16 @@ function takeTestCtrl($scope, $stateParams, questionList) {
     }
 }
 
-function questionListCtrl($scope, questionList, questionService) {
+function questionListCtrl($scope, $state, questionList, questionService) {
     $scope.questions = questionList;
 
     $scope.remove = function (id) {
         questionService.remove(id);
         location.reload();
+    }
+
+    $scope.edit = function (id) {
+        $state.go('questions.edit', { 'id': id });
     }
 }
 
@@ -179,7 +201,8 @@ function subjectListCtrl($scope, subjectList, subjectService) {
     }
 }
 
-function newQuestionCtrl($scope, questionService, subjectsList) {
+function newQuestionCtrl($scope, questionService, subjectsList, defaultQuestion) {
+
     var emptyQuestion = {
         'id': questionService.getNextId(),
         'question': '',
@@ -188,8 +211,12 @@ function newQuestionCtrl($scope, questionService, subjectsList) {
         'answers': ['']
     };
 
+    if (defaultQuestion == null) {
+        defaultQuestion = emptyQuestion;
+    }
+
     $scope.subjects = subjectsList;
-    $scope.newQuestion = copy(emptyQuestion);
+    $scope.newQuestion = copy(defaultQuestion);
     $scope.validationError = false;
 
     $scope.addAnswer = function () {

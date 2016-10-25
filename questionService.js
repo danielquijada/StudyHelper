@@ -14,7 +14,8 @@
 			getList: getList,
 			save: save,
 			getNextId: getNextId,
-			remove: remove
+			remove: remove,
+			get: get
 		};
 
 		function getNextId() {
@@ -29,6 +30,13 @@
 			return JSON.parse(localStorage.getItem(KEY));
 		}
 
+		function get(id) {
+			var list = getList();
+			return list.find(function (element) {
+				return element.id == id;
+			});
+		}
+
 		function remove(id) {
 			var list = getList() || [];
 
@@ -41,13 +49,28 @@
 
 		function save(question) {
 			var list = getList() || [];
-			list.push(question);
+			var index = indexById(list, question.id);
+
+			if (index > -1) {
+				list[index] = question;
+			} else {
+				list.push(question);
+			}
 
 			var filteredList = list.filter(function (question) {
 				return question.question !== '';
 			});
 
 			localStorage.setItem(KEY, JSON.stringify(list));
+		}
+
+		function indexById(list, id) {
+			for (var i = 0; i < list.length; i++) {
+				if (list[i].id == id) {
+					return i;
+				}
+			}
+			return -1;
 		}
 	}
 
