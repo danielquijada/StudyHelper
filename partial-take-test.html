@@ -2,9 +2,9 @@
 <h1 class="text-center col-sm-2 col-sm-offset-5" ng-class="{'completedTest': score.answered == testQuestions.length, 'passTest': score.correct >= 1 && score.correct >= (score.answered / 2), 'failTest': score.correct < (score.answered / 2)}">{{score.correct}} / {{score.answered}}</h1>
 <p class="col-sm-12" ng-if="!testQuestions || testQuestions.length <= 0">No hay ninguna pregunta que corresponda con tus criterios.</p>
 <div class="col-sm-12" ng-repeat="question in testQuestions track by $index" class="question" ng-class="{'solved': question.solved,'unsolved': !question.solved}">
-    <h3>{{$index + 1}}) {{question.question}}</h3>
-    <ol>
-        <li ng-repeat="answer in question.answers" ng-class="{'correctAnswer': question.correct == $index, 'selected': question.selected && question.selected == $index}"
-            class="testAnswer" ng-click="solve(question,$index)">{{answer}}</li>
-    </ol>
+	<h3>{{$index + 1}}) {{question.question}}</h3>
+	<ol>
+		<li ng-repeat="answer in question.answers track by $index" ng-class="{'correctAnswer': question.correct == $index, 'selected': question.selected && question.selected == $index}"
+			class="testAnswer" ng-click="solve(question,$index)">{{answer}}</li>
+	</ol>
 </div>

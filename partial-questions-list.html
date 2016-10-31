@@ -2,8 +2,9 @@
 <p ng-if="!questions || questions.length <= 0">Aún no has introducido ninguna pregunta</p>
 <div ng-repeat="question in questions track by $index" class="question">
 	<h3>{{$index + 1}}) {{question.question}}</h3>
+	<p>{{question}}</p>
 	<ol>
-		<li ng-repeat="answer in question.answers" ng-class="{'correct': question.correct == $index}">{{answer}}</li>
+		<li ng-repeat="answer in question.answers track by $index" ng-class="{'correct': question.correct == $index}">{{answer}}</li>
 	</ol>
 	<div class="text-right">
 		<a class="btn btn-default" ng-click="edit(question.id)">Editar</a>
