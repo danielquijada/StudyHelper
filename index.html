@@ -2,49 +2,55 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
 
-    <!-- CSS (load bootstrap) -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <style>
-        .navbar { border-radius:0; }
-    </style>
+	<!-- CSS (load bootstrap) -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<style>
+		.navbar {
+			border-radius: 0;
+		}
+	</style>
 
-    <!-- JS (load angular, ui-router, and our custom js file) -->
-    <script src="angular.min.js"></script>
-    <script src="ui-router.js"></script>
-    <script src="app.js"></script>
+	<!-- JS (load angular, ui-router, and our custom js file) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="angular.min.js"></script>
+	<script src="ui-router.js"></script>
+	<script src="app.js"></script>
 
-    <!-- Services -->
-    <script src="questionService.js"></script>
-    <script src="subjectService.js"></script>
+	<!-- Services -->
+	<script src="questionService.js"></script>
+	<script src="subjectService.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <!-- apply our angular app to our site -->
+
 <body ng-app="study-helper">
 
-<!-- NAVIGATION -->
-<nav class="navbar navbar-inverse" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" ui-sref="#">Study Helper</a>
-    </div>
-    <ul class="nav navbar-nav">
-        <li><a ui-sref="subjects">Asignaturas</a></li>
-        <li><a ui-sref="questions">Preguntas</a></li>
-        <li><a ui-sref="test">Test</a></li>
-    </ul>
-</nav>
+	<!-- NAVIGATION -->
+	<nav class="navbar navbar-inverse" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" ui-sref="#">Study Helper</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a ui-sref="subjects">Asignaturas</a></li>
+			<li><a ui-sref="questions">Preguntas</a></li>
+			<li><a ui-sref="test">Test</a></li>
+		</ul>
+	</nav>
 
-<!-- MAIN CONTENT -->
-<div class="container">
+	<!-- MAIN CONTENT -->
+	<div class="container">
 
-    <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
-    <div ui-view></div>
+		<!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+		<div ui-view></div>
 
-</div>
+	</div>
 
 </body>
+
 </html>

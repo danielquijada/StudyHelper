@@ -203,6 +203,8 @@ function subjectListCtrl($scope, subjectList, subjectService) {
 
 function newQuestionCtrl($scope, questionService, subjectsList, defaultQuestion) {
 
+    angular.element('#pregunta').trigger('focus');
+
     var emptyQuestion = {
         'id': questionService.getNextId(),
         'question': '',
@@ -227,6 +229,7 @@ function newQuestionCtrl($scope, questionService, subjectsList, defaultQuestion)
         if (!validate()) {
             $scope.validationError = true;
         } else {
+            angular.element('#pregunta').trigger('focus');
             $scope.newQuestion = deleteEmptyAnswers($scope.newQuestion);
             questionService.save($scope.newQuestion);
             emptyQuestion.subject = $scope.newQuestion.subject;
