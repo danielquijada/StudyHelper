@@ -227,11 +227,21 @@ function newQuestionCtrl($scope, questionService, subjectsList, defaultQuestion)
         if (!validate()) {
             $scope.validationError = true;
         } else {
+            $scope.newQuestion = deleteEmptyAnswers($scope.newQuestion);
             questionService.save($scope.newQuestion);
             $scope.newQuestion = copy(emptyQuestion);
             $scope.newQuestion.id = questionService.getNextId();
             $scope.validationError = false;
         }
+    }
+
+    function deleteEmptyAnswers(question) {
+        var answers = question.answers;
+        while (answers.indexOf('') != -1) {
+            answers.splice(answers.indexOf(''), 1);
+        }
+        question.answers = answers;
+        return question;
     }
 
     function validate() {
