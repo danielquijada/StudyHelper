@@ -229,6 +229,7 @@ function newQuestionCtrl($scope, questionService, subjectsList, defaultQuestion)
         } else {
             $scope.newQuestion = deleteEmptyAnswers($scope.newQuestion);
             questionService.save($scope.newQuestion);
+            emptyQuestion.subject = $scope.newQuestion.subject;
             $scope.newQuestion = copy(emptyQuestion);
             $scope.newQuestion.id = questionService.getNextId();
             $scope.validationError = false;
